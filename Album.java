@@ -1,5 +1,5 @@
 package la1;
 
-public class Album {
-
+public class myAlbum {
+  System.out.println("Hi");
 }
