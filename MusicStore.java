@@ -1,4 +1,4 @@
-//package la1_fbbe;
+package la1_fbbe;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,7 +12,7 @@ public class MusicStore {
 	public void configureMS() {
 					
 			//go over each file
-			File dir = new File("/Users/behruzernazarov/eclipse-workspace/Music/src");
+			File dir = new File("/Users/fatihbozdogan/Desktop/CS/CSC335/la_1_csc335/la1_fbbe/src");
 		    File[] filesArr = dir.listFiles();
 		    
 		    
@@ -25,9 +25,7 @@ public class MusicStore {
 		    	}
 		    }
 	}
-	
-
-	private static void processFile(File f) {
+private static void processFile(File f) {
 		try {
 			Scanner scanner = new Scanner(f);
 
@@ -53,8 +51,7 @@ public class MusicStore {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-	}
-	
+	}	
 	///////////////// Search Song by Song title /////////////////
 	
 	public void searchSongByTitle(String songTitle){
@@ -136,19 +133,3 @@ public class MusicStore {
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

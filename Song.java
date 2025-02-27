@@ -1,4 +1,4 @@
-//package la1_fbbe;
+package la1_fbbe;
 
 public class Song {
 	private String songTitle;

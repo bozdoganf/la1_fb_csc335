@@ -1,4 +1,4 @@
-//package la1_fbbe;
+package la1_fbbe;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class Album {
 	public void buildAlbum(Song s) {
 		songs.add(s);
 	}
-		
+
 	public void getAlbumSongs() {
 		for (int i = 0; i < songs.size(); i++) {
 			System.out.println(songs.get(i).getSongTitle());
@@ -60,5 +60,8 @@ public class Album {
 		}
 	}
 	
+	
+}
+
 	
 }
