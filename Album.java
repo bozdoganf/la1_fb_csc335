@@ -27,12 +27,41 @@ public class Album {
 	public void buildAlbum(Song s) {
 		songs.add(s);
 	}
-	
+
 	public void getAlbumSongs() {
 		for (int i = 0; i < songs.size(); i++) {
 			System.out.println(songs.get(i).getSongTitle());
 		}
 	}
+	
+	public void searchSongByTitle(String songTitle, ArrayList<Boolean> found) {
+		for(Song song: songs) {
+			if(songTitle.equals(song.getSongTitle())) {
+				System.out.println(song.getSongTitle());
+				System.out.println(song.getArtistName());
+				System.out.println(song.getAlbumTitle());
+				found.remove(false);
+				found.add(true);
+			}
+
+		}
+	}
+	
+	public void searchSongByArtist(String artist, ArrayList<Boolean> found) {
+		for(Song song: songs) {
+			if(artist.equals(song.getArtistName())) {
+				System.out.println(song.getSongTitle());
+				System.out.println(song.getArtistName());
+				System.out.println(song.getAlbumTitle());
+				found.remove(false);
+				found.add(true);
+			}
+			
+		}
+	}
+	
+	
+}
 
 	
 }

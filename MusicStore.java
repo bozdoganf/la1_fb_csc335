@@ -25,7 +25,7 @@ public class MusicStore {
 		    	}
 		    }
 	}
-	private static void processFile(File f) {
+private static void processFile(File f) {
 		try {
 			Scanner scanner = new Scanner(f);
 
@@ -51,6 +51,85 @@ public class MusicStore {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+	}	
+	///////////////// Search Song by Song title /////////////////
+	
+	public void searchSongByTitle(String songTitle){
+		ArrayList<Boolean> found = new ArrayList<>();
+		found.add(false);
+		for (Album a : albums ) {
+			// call the helper search method
+			a.searchSongByTitle(songTitle, found);
+		}
+		if (!(found.get(0))) {
+			System.out.println("The search not found in our database :(");
+		}
+
+	}
+	
+	///////////////// Search Song by Artist name /////////////////
+	
+	public void searchSongByArtist(String artist){
+		ArrayList<Boolean> found = new ArrayList<>();
+		found.add(false);
+		for (Album a : albums ) {
+			// call the helper search method
+			a.searchSongByArtist(artist, found);
+			
+		}
+		if (!(found.get(0))) {
+			System.out.println("The search not found in our database :(");
+		}
+	}
+	
+	
+	///////////////// Search Album by Album title /////////////////
+	
+	public void searchAlbumByTitle(String albumTitle){
+		ArrayList<Boolean> found  =  new ArrayList<>();
+		found.add(false);
+		for (Album a : albums ) {
+			// call the helper search method
+			if(albumTitle.equals(a.getTitle())) {
+				System.out.println(a.getTitle());
+				System.out.println(a.getArtist());
+				System.out.println(a.getGenre());
+				System.out.println(a.getYear());
+				a.getAlbumSongs();
+				found.remove(false);
+				found.add(true);
+			}
+			
+		}
+		if(!(found.get(0))){
+			System.out.println("The search not found in our database :(");
+		}
+
+	}
+	
+	///////////////// Search Album by Artist name /////////////////
+	
+	public void searchAlbumByArtist(String albumArtist){
+		ArrayList<Boolean> found  =  new ArrayList<>();
+		found.add(false);
+		for (Album a : albums ) {
+			// call the helper search method
+			if(albumArtist.equals(a.getArtist())) {
+				System.out.println(a.getTitle());
+				System.out.println(a.getArtist());
+				System.out.println(a.getGenre());
+				System.out.println(a.getYear());
+				a.getAlbumSongs();
+				found.remove(false);
+				found.add(true);
+			}
+			
+		}
+		
+		if(!(found.get(0))){
+			System.out.println("The search not found in our database :(");
+		}
+				
 	}
 	
 }
