@@ -1,3 +1,4 @@
+package la1_fbbe;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -7,6 +8,7 @@ public class TheView {
 		musicesOptimus(args);
 		
 		// run the program in the terminal
+		
 		
 	}
 	
@@ -35,7 +37,57 @@ public class TheView {
 				+ "rate [name of the song / artist / album] you want to rate in your library\n"
 				+ "EXIT [exits the program]"
 				+ "");
-		 
+		
+		
+		
+		
+		// print the instruction manual
+			// this follows a Design By Contract methodology
+			// * You cannot rate a song you do not have in your library or your playlist or your
+		
+			// search_song_title _____ -> implement the method and return [song1, song2, etc.]
+			// search_song_artist ____ -> same implementation as above
+			// search_album_title ____-> [album1]
+			// search_album_artist ___
+		
+			// new_playlist -> create a new playlist object and add it to the arraylist of playlists
+			// print that you need to search for songs first
+		
+			// example scenario:
+		
+				// search for a song by title
+				// give the result (ex. Lovesong by Adele and Lovesong by OneRepublic (not true)) 
+				// add_PlayList [Song_name/artist/album] to PlayListName -> Implement the addPlayList
+				// go over the song list, find the song based on the song_name, artist, album
+				// return the song object
+				// addPlaylist() -> find the playlist in the playlist arraylist, add the song to the playlist
+	
+				// add_Song [Song_name/artist/album] -> call the add_Song() method
+				// addSong() -> go over the song list find the song based on the song_name, artist, album
+				// add it to the library
+		
+				// add_Album [Album name / artist  ] -> call the addAlbum() method
+				// search if that album exists (by Title or by Artist)
+				// [album1, album2...]
+				// addAlbum() -> add that album to the album arraylist in the library
+		
+				// search the lib
+					// same search functions except you will run these on three arraylists
+		
+				// get lists [title/artists/albums/playlists]
+					// go over all the library stuff
+				
+				// once you built your library, you can rate songs
+				// command
+					// rate [Song name]
+						// search by title in your library
+						// return hashset
+						// take that song 
+					
+		
+				
+		// be in the state of asking for input constantly
+		// 
 		
 		// initiate all the objects
 		MusicStore mS = new MusicStore();

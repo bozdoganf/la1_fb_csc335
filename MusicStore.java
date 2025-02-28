@@ -1,4 +1,4 @@
-//package la1_fbbe;
+package la1_fbbe;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,12 +7,16 @@ import java.util.Scanner;
 
 public class MusicStore {
 	
-	private static ArrayList<Album> albums = new ArrayList<>();
+	private static ArrayList<Album> albums;
+	
+	public MusicStore() {
+		albums = new ArrayList<>();
+	}
 	
 	public void configureMS() {
 					
 			//go over each file
-			File dir = new File("/Users/behruzernazarov/eclipse-workspace/Music/src");
+			File dir = new File("/Users/fatihbozdogan/Desktop/CS/CSC335/la_1_csc335/la1_fbbe/src");
 		    File[] filesArr = dir.listFiles();
 		    
 		    
@@ -25,8 +29,6 @@ public class MusicStore {
 		    	}
 		    }
 	}
-	
-
 	private static void processFile(File f) {
 		try {
 			Scanner scanner = new Scanner(f);
@@ -46,54 +48,68 @@ public class MusicStore {
 			while(scanner.hasNext()) {
 				line = scanner.nextLine();
 				String songTitle = line.strip();
-				Song song = new Song(songTitle, album.getArtist(), album.getTitle());
+				Song song = new Song(songTitle.strip(), album.getArtist(), album.getTitle());
 				album.buildAlbum(song);
 			}
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-	}
-	
+	}	
 	///////////////// Search Song by Song title /////////////////
 	
-	public void searchSongByTitle(String songTitle){
+	public ArrayList<Song> searchSongByTitle(String songTitle){
 		ArrayList<Boolean> found = new ArrayList<>();
 		found.add(false);
+		
+		ArrayList<Song> songsSearched1 = new ArrayList<>();
+		
 		for (Album a : albums ) {
 			// call the helper search method
-			a.searchSongByTitle(songTitle, found);
+			a.searchSongByTitle(songTitle, found, songsSearched1);
 		}
 		if (!(found.get(0))) {
 			System.out.println("The search not found in our database :(");
 		}
-
+		return songsSearched1;
 	}
 	
 	///////////////// Search Song by Artist name /////////////////
 	
-	public void searchSongByArtist(String artist){
+	public ArrayList<Song> searchSongByArtist(String artist){
+		
+		
 		ArrayList<Boolean> found = new ArrayList<>();
 		found.add(false);
+		
+		ArrayList<Song> songsSearched2 = new ArrayList<>();
+		
+		
 		for (Album a : albums ) {
 			// call the helper search method
-			a.searchSongByArtist(artist, found);
+			a.searchSongByArtist(artist, found, songsSearched2);
 			
 		}
 		if (!(found.get(0))) {
 			System.out.println("The search not found in our database :(");
 		}
+		return songsSearched2;
 	}
 	
 	
 	///////////////// Search Album by Album title /////////////////
 	
-	public void searchAlbumByTitle(String albumTitle){
+	public ArrayList<Album> searchAlbumByTitle(String albumTitle){
 		ArrayList<Boolean> found  =  new ArrayList<>();
 		found.add(false);
+		
+		ArrayList<Album> albumSearched1 = new ArrayList<>();
+
+		
 		for (Album a : albums ) {
 			// call the helper search method
 			if(albumTitle.equals(a.getTitle())) {
+				albumSearched1.add(a);
 				System.out.println(a.getTitle());
 				System.out.println(a.getArtist());
 				System.out.println(a.getGenre());
@@ -107,17 +123,23 @@ public class MusicStore {
 		if(!(found.get(0))){
 			System.out.println("The search not found in our database :(");
 		}
+		return albumSearched1;
 
 	}
 	
 	///////////////// Search Album by Artist name /////////////////
 	
-	public void searchAlbumByArtist(String albumArtist){
+	public ArrayList<Album> searchAlbumByArtist(String albumArtist){
 		ArrayList<Boolean> found  =  new ArrayList<>();
 		found.add(false);
+		
+		ArrayList<Album> albumSearched2 = new ArrayList<>();
+
+		
 		for (Album a : albums ) {
 			// call the helper search method
 			if(albumArtist.equals(a.getArtist())) {
+				albumSearched2.add(a);
 				System.out.println(a.getTitle());
 				System.out.println(a.getArtist());
 				System.out.println(a.getGenre());
@@ -132,23 +154,9 @@ public class MusicStore {
 		if(!(found.get(0))){
 			System.out.println("The search not found in our database :(");
 		}
+		
+		return albumSearched2;
 				
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

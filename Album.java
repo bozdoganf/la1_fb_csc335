@@ -1,4 +1,4 @@
-//package la1_fbbe;
+package la1_fbbe;
 
 import java.util.ArrayList;
 
@@ -27,16 +27,17 @@ public class Album {
 	public void buildAlbum(Song s) {
 		songs.add(s);
 	}
-		
+
 	public void getAlbumSongs() {
 		for (int i = 0; i < songs.size(); i++) {
 			System.out.println(songs.get(i).getSongTitle());
 		}
 	}
 	
-	public void searchSongByTitle(String songTitle, ArrayList<Boolean> found) {
+	public void searchSongByTitle(String songTitle, ArrayList<Boolean> found, ArrayList<Song> songsSearched1) {
 		for(Song song: songs) {
 			if(songTitle.equals(song.getSongTitle())) {
+				songsSearched1.add(song);
 				System.out.println(song.getSongTitle());
 				System.out.println(song.getArtistName());
 				System.out.println(song.getAlbumTitle());
@@ -47,9 +48,11 @@ public class Album {
 		}
 	}
 	
-	public void searchSongByArtist(String artist, ArrayList<Boolean> found) {
+	public void searchSongByArtist(String artist, ArrayList<Boolean> found, ArrayList<Song> songsSearched2) {
+		
 		for(Song song: songs) {
 			if(artist.equals(song.getArtistName())) {
+				songsSearched2.add(song);
 				System.out.println(song.getSongTitle());
 				System.out.println(song.getArtistName());
 				System.out.println(song.getAlbumTitle());
