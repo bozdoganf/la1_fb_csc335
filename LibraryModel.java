@@ -1,4 +1,4 @@
-// package la1_fbbe;
+package la1_fbbe;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -20,10 +20,6 @@ public class LibraryModel {
 		// initialize the favArr
 		favArr = new ArrayList<>();
 	}
-	
-	// public void initializeFavArr() {
-		// favArr = new ArrayList<>();
-	// }
 
 	public void initializeAPlayList(String name) {
 		playListLib.add(new PlayList(name));

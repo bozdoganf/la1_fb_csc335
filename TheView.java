@@ -19,26 +19,14 @@ public class TheView {
 		
 		System.out.println(""
 				+ "Welcome to Musices Optimus!\n"
-				+ "and your program doesn't run, it's on you.\n \n"
+				+ "This follows Design by Contract methodology, meaning if you fail to follow the instructions, it's your responsibility\n \n"
 				+ "Instructions:\n \n"
-				+ "To search: type SEARCH ");
-				+ ""
-//				+ "search_song_title [title of the song you want to search]\n"
-//				+ "search_song_artist [name of the artist you want to search]\n"
-//				+ "search_album_title [title of the album you want to search]\n"
-//				+ "search_album_artist [artist of the album you want to search]\n"
-//				+ "new_playlist [name of the playlist you want to create]\n"
-//				+ "Please note that if you want to add to a song to a playlist, you need to search it first.\n"
-//				+ "So afte you search, you either one of these or multiple: \n"
-//				+ "add_Playlist [name of the song / artist / album] [name of the playlist you want to add the song to]\n"
-//				+ "remove_Playlist [name of the song / artist / album you want to remove from] [name of the play you want to remove from\n"
-//				+ "add_Song [name of the song / artist / album  you want to add to your library] \n"
-//				+ "remove_Song [name of the song / artist / album you want to remove from your library]\n"
-//				+ "add_Album [name of the album / artist / album you want to add to your library]\n"
-//				+ "remove_Album [name of the album / artist / album] you want to remove from your library\n"
-//				+ "rate [name of the song / artist / album] you want to rate in your library\n"
-//				+ "EXIT [exits the program]"
-//				+ "");
+				+ "WARNING: Due to the nature of the program, \n"
+				+ "if you want to create any playlists at all, you need to initialize them at the initial state\n\n"
+				+ "To create a playlist: NEW_PLAYLIST\n\n"
+				+ "To search: type SEARCH\n\n"
+				+ "Initial state is where you start the program.\n\n"
+				+ "To exit the program: EXIT\n");
 					
 		
 				
@@ -52,7 +40,7 @@ public class TheView {
 		Scanner scanner = new Scanner(System.in);        
         
         boolean programState = true;
-        System.out.println("Input:");
+        System.out.println("Input below:");
         
         
         while (programState) {
@@ -128,10 +116,7 @@ public class TheView {
             	else {continue;}
             	
             }
-            else if (command.contains("add_Song")) { 
-            	System.out.println("You need to search the song first, then add.");
-            	continue;
-            }
+
             else if (command.toLowerCase().contains("new_playlist")) { newPlaylistExecuter(scanner, lM);}
             else if (command.toLowerCase().contains("remove_Playlist")) {
             	System.out.println("What's the name of the playlist you want to remove songs from?");
@@ -254,7 +239,7 @@ public class TheView {
         	String albumName1 = scanner.nextLine().strip();
         	ArrayList<Album> albumsSearched1 = mS.searchAlbumByTitle(albumName1);
         	
-        	System.out.println("Type ADD ALBUM to add your library as a song");
+        	System.out.println("Type ADD ALBUM to add to your library");
 
         	String addAlbumCommand1 = scanner.nextLine().strip();
         	
@@ -268,7 +253,7 @@ public class TheView {
         	
         	ArrayList<Album> albumsSearched1 = mS.searchAlbumByArtist(artistName1);
         	
-        	System.out.println("Type ADD ALBUM to add your library as a song");
+        	System.out.println("Type ADD ALBUM to add your library");
         	String addAlbumCommand2 = scanner.nextLine().strip();
         	
         	if(addAlbumCommand2.toLowerCase().contains("add album")) { addAlbumHelper(scanner, albumsSearched1, lM);}
@@ -309,7 +294,6 @@ public class TheView {
     			System.out.println("Who's the artist of the album you want to search?");
     			String command5 = scanner.nextLine().strip();
     			ArrayList<Album> albumsSearched = lM.searchAlbumByArtist(command5);
-    			System.out.println(albumsSearched);
     		} 
     	
         }	

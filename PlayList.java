@@ -1,4 +1,4 @@
-// package la1_fbbe;
+package la1_fbbe;
 
 import java.util.ArrayList;
 import java.util.HashSet;

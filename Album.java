@@ -1,4 +1,4 @@
-// package la1_fbbe;
+package la1_fbbe;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -45,9 +45,9 @@ public class Album {
 		for(Song song: songs) {
 			if(songTitle.equals(song.getSongTitle())) {
 				songsSearched1.add(song);
-				System.out.println(song.getSongTitle());
-				System.out.println(song.getArtistName());
-				System.out.println(song.getAlbumTitle());
+				System.out.println("Song title: " + song.getSongTitle());
+				System.out.println("Song artist: " + song.getArtistName());
+				System.out.println("Album the song belongs: " + song.getAlbumTitle());
 				found.remove(false);
 				found.add(true);
 			}
@@ -58,9 +58,9 @@ public class Album {
 		for(Song song: songs) {
 			if(songTitle.equals(song.getSongTitle())) {
 				songsSearched1.add(song);
-				System.out.println(song.getSongTitle());
-				System.out.println(song.getArtistName());
-				System.out.println(song.getAlbumTitle());
+				System.out.println("Song title: " + song.getSongTitle());
+				System.out.println("Song artist: " + song.getArtistName());
+				System.out.println("Album the song belongs: " + song.getAlbumTitle());
 				found.remove(false);
 				found.add(true);
 			}
@@ -72,9 +72,9 @@ public class Album {
 		for(Song song: songs) {
 			if(artist.equals(song.getArtistName())) {
 				songsSearched2.add(song);
-				System.out.println(song.getSongTitle());
-				System.out.println(song.getArtistName());
-				System.out.println(song.getAlbumTitle());
+				System.out.println("Song title: " + song.getSongTitle());
+				System.out.println("Song artist: " + song.getArtistName());
+				System.out.println("Album the song belongs: " + song.getAlbumTitle());
 				if (found.contains(false))found.remove(false);
 				found.add(true);
 			}
@@ -87,9 +87,9 @@ public class Album {
 		for(Song song: songs) {
 			if(artist.equals(song.getArtistName())) {
 				songsSearched2.add(song);
-				System.out.println(song.getSongTitle());
-				System.out.println(song.getArtistName());
-				System.out.println(song.getAlbumTitle());
+				System.out.println("Song title: " + song.getSongTitle());
+				System.out.println("Song artist name: " + song.getArtistName());
+				System.out.println("Album the song belongs: " + song.getAlbumTitle());
 				if (found.contains(false))found.remove(false);
 				found.add(true);
 			}
