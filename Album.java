@@ -1,4 +1,4 @@
-package la1_fbbe;
+// package la1_fbbe;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -100,7 +100,7 @@ public class Album {
 	public Song findSong(String songName, String songArtist, String albumItBelongsTo) {
 		for (Song s : songs) {
 			if (s.getSongTitle().equals(songName) && s.getArtistName().equals(songArtist)
-					&& s.getArtistName().equals(songArtist) && s.getAlbumTitle().equals(albumItBelongsTo)) {
+					&& s.getAlbumTitle().equals(albumItBelongsTo)) {
 				return s;
 			}
 		}

@@ -1,4 +1,4 @@
-package la1_fbbe;
+// package la1_fbbe;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -6,15 +6,24 @@ import java.util.HashSet;
 public class LibraryModel {
 	
 	// library
-	private static ArrayList<Album> albumsLib;
-	private static ArrayList<PlayList> playListLib;
-	private static ArrayList<Song> songLib;
+	private ArrayList<Album> albumsLib;
+	private ArrayList<PlayList> playListLib;
+	private ArrayList<Song> songLib;
+	private ArrayList<Song> favArr;
+	 
 	
 	public LibraryModel() {
 		albumsLib = new ArrayList<>();
 		playListLib = new ArrayList<>();
 		songLib = new ArrayList<>();
+		
+		// initialize the favArr
+		favArr = new ArrayList<>();
 	}
+	
+	// public void initializeFavArr() {
+		// favArr = new ArrayList<>();
+	// }
 
 	public void initializeAPlayList(String name) {
 		playListLib.add(new PlayList(name));
@@ -72,7 +81,7 @@ public class LibraryModel {
 		ArrayList<Album> albumSearched1 = new ArrayList<>();
 
 		
-		for (Album a : albumsLib ) {
+		for (Album a : this.albumsLib ) {
 			// call the helper search method
 			if(albumTitle.equals(a.getTitle())) {
 				albumSearched1.add(a);
@@ -208,7 +217,7 @@ public class LibraryModel {
 	}
 	
 	
-	private Song findTheSongLM(String songTitle, String artistName, String albumTitle) {
+	public Song findTheSongLM(String songTitle, String artistName, String albumTitle) {
 		Song res = null;
     	for (Song s : songLib) {
     		if (s.getSongTitle().equals(songTitle) && s.getArtistName().equals(artistName) 
@@ -228,11 +237,14 @@ public class LibraryModel {
 		return res;
 	}
 	
-	public void rateTheSong(String songTitle, String artistName, String albumTitle, Rating rating) {
+	public Song rateTheSong(String songTitle, String artistName, String albumTitle, Rating rating) {
 		Song s = this.findTheSongLM(songTitle, artistName, albumTitle);
 		// set the song rating
-		s.setRating(rating);
-		System.out.println("The song's rating has been set at " + s.getSongRating());
+		if (s != null) {
+			s.setRating(rating);
+			System.out.println("The song's rating has been set at " + s.getSongRating());
+		}
+		return s;
 	}
 	
 	
@@ -303,8 +315,26 @@ public class LibraryModel {
 		for (String albumName : albumsMap) {
 			System.out.println(albumName);
 		}
-		
 	}
 	
+	
+	// go over the playlist array; print the name of the playlist
+	public void getPlaylistLib() {
+		for (PlayList p : playListLib) {
+			System.out.println(p.getName());
+		}
+	}
+	
+	public void addToFavArr(Song song) {
+		favArr.add(song);
+	}
+	
+	// favorite array in the view
+	// in the rating, check if the array you rated became favorite, if so, add it to the favorite array
+	public void printFavArr() {
+		for (Song s : favArr) {
+			System.out.println(s.getSongTitle());
+		}
+	}
 	
 }
