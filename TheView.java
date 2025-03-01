@@ -18,13 +18,11 @@ public class TheView {
 		// you started the program
 		
 		System.out.println(""
-				+ "Welcome to Musices Optimus! To use this program please follow the instructions strictly.\n"
-				+ "This program follows the design by contract methodology, so if you don't follow instructions\n"
+				+ "Welcome to Musices Optimus!\n"
 				+ "and your program doesn't run, it's on you.\n \n"
 				+ "Instructions:\n \n"
 				+ "To search: type SEARCH ");
-					
-		
+				+ ""
 //				+ "search_song_title [title of the song you want to search]\n"
 //				+ "search_song_artist [name of the artist you want to search]\n"
 //				+ "search_album_title [title of the album you want to search]\n"
@@ -66,10 +64,6 @@ public class TheView {
             else if (command.toLowerCase().equals("rate")) {
             	System.out.println("In order to rate, you must have songs in the library"); // be at the top
             	
-            	System.out.println("Choose a rating from 1-5");
-            	String ratingCommand = scanner.nextLine();
-            	Rating rating  = convertToEnums(Integer.valueOf(ratingCommand));
-            	
             	System.out.println("What's the song name?");
             	String songNameCommand = scanner.nextLine().strip();
             	
@@ -79,12 +73,16 @@ public class TheView {
             	System.out.println("What's the album the song belongs to?");
             	String songAlbumCommand = scanner.nextLine().strip();
             	
+            	System.out.println("Choose a rating from 1-5");
+            	String ratingCommand = scanner.nextLine();
+            	Rating rating  = convertToEnums(Integer.valueOf(ratingCommand));
+            	
             	// search in the library
-            	lM.rateTheSong(songNameCommand, songArtistCommand, songAlbumCommand, rating);
+            	Song s = lM.rateTheSong(songNameCommand, songArtistCommand, songAlbumCommand, rating);
+            	if (s.getFavStatus()) {lM.addToFavArr(s);}
             	continue;
             	
             }
-            
             
             // get a list of song titles from the library
             else if (command.toLowerCase().contains("get")) {
@@ -102,8 +100,16 @@ public class TheView {
             		// to get all the albums
             		lM.getAlbumsLib();
             	}
-            	else if (gettersCommand.toLowerCase().contains("playlists")) {}
-            	else if (gettersCommand.toLowerCase().contains("favorite")) {}
+            	else if (gettersCommand.toLowerCase().contains("playlists")) {
+            		
+            		// go over the playlist array; print the name of the playlist
+            		lM.getPlaylistLib();
+            		
+            	}
+            	else if (gettersCommand.toLowerCase().contains("favorite")) {
+            		// go over the fav arr and print it
+            		lM.printFavArr();
+            	}
             }
 
             
@@ -119,6 +125,7 @@ public class TheView {
             		searchLib(scanner, lM);
             		continue;
             	}
+            	else {continue;}
             	
             }
             else if (command.contains("add_Song")) { 
@@ -170,6 +177,7 @@ public class TheView {
 		
 		if (wayToSearch.toLowerCase().contains("song")) {searchDatabaseSong(scanner, mS, lM);}
 		else if (wayToSearch.toLowerCase().contains("album")) {searchDatabaseAlbum(scanner, mS, lM);}
+		else {System.out.println("Invalid input. You are back at the initial state.");}
 		
 		
 		// title, artist
@@ -203,8 +211,10 @@ public class TheView {
             	String commandSong = scanner.nextLine().strip();
             	
             	if (commandSong.toLowerCase().contains("song")) {addSongHelper(scanner, songsSearched1, lM);}
-            	if (commandSong.toLowerCase().contains("playlist")) { addPlaylistHelper(scanner, songsSearched1, lM);}
+            	else if (commandSong.toLowerCase().contains("playlist")) { addPlaylistHelper(scanner, songsSearched1, lM);}
+            	else {System.out.println("Invalid input. You are now back at the initial state.");}
         	}
+        	else {System.out.println("Invalid input. You are now back at the initial state.");}
         	
         }
         
@@ -224,11 +234,11 @@ public class TheView {
             	String commandSong = scanner.nextLine().strip();
             	
             	if (commandSong.toLowerCase().contains("song")) {addSongHelper(scanner, songsSearched2, lM);}
-            	if (commandSong.toLowerCase().contains("playlist")) { addPlaylistHelper(scanner, songsSearched2, lM);}
+            	else if (commandSong.toLowerCase().contains("playlist")) { addPlaylistHelper(scanner, songsSearched2, lM);}
+            	else {System.out.println("Invalid input. You are now at the initial state.");}
         	}
-        	
-
         }
+        else {System.out.println("Invalid input. You are now at the intial state.");}
 	}
 	
 	public static void searchDatabaseAlbum(Scanner scanner, MusicStore mS, LibraryModel lM) {
@@ -380,7 +390,7 @@ public class TheView {
     	System.out.println("What's the name of the album?");
     	String nameAlbumLib1 = scanner.nextLine().strip();
     	
-    	System.out.println("What's the artist of the album?");
+    	System.out.println("Who is the artist of the album?");
     	String nameArtistLib1 = scanner.nextLine().strip();
     
     	
