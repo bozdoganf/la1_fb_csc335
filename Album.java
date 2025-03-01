@@ -1,5 +1,3 @@
-package la1_fbbe;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -10,6 +8,7 @@ public class Album {
 	private String year;
 	private ArrayList<Song> songs;
 	
+	
 	public Album(String title, String artistName, String genre, String year) {
 		this.title = title;
 		this.artistName = artistName;
@@ -17,6 +16,7 @@ public class Album {
 		this.year = year;
 		songs = new ArrayList<>();
 	}
+	
 	
 	
 	public String getTitle() { return title;}

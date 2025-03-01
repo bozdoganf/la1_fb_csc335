@@ -1,6 +1,5 @@
-package la1_fbbe;
-
 import java.util.ArrayList;
+
 import java.util.HashSet;
 
 public class LibraryModel {
@@ -12,10 +11,12 @@ public class LibraryModel {
 	private ArrayList<Song> favArr;
 	 
 	
+	
 	public LibraryModel() {
 		albumsLib = new ArrayList<>();
 		playListLib = new ArrayList<>();
 		songLib = new ArrayList<>();
+		
 		
 		// initialize the favArr
 		favArr = new ArrayList<>();

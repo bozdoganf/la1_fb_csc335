@@ -1,4 +1,4 @@
-package la1_fbbe;
+
 
 public class Song {
 	private String songTitle;
@@ -19,6 +19,8 @@ public class Song {
 	public String getAlbumTitle() {return albumTitle;}
 	public Rating getSongRating() {return rating;}
 	public boolean getFavStatus() {return favStatus;}
+	
+	
 	
 	
 	

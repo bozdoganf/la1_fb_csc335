@@ -1,4 +1,3 @@
-package la1_fbbe;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,6 +11,8 @@ public class TheView {
 		
 		
 	}
+	
+	
 	
 	
 	public static void musicesOptimus(String[] args) {

@@ -1,4 +1,3 @@
-package la1_fbbe;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -17,6 +16,8 @@ public class PlayList {
 	public String getName() {
 		return name;
 	}
+	
+	
 	
 	
 	public void addSong(Song song) {
