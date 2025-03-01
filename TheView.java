@@ -1,6 +1,7 @@
 package la1_fbbe;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class TheView {
@@ -19,75 +20,30 @@ public class TheView {
 		System.out.println(""
 				+ "Welcome to Musices Optimus! To use this program please follow the instructions strictly.\n"
 				+ "This program follows the design by contract methodology, so if you don't follow instructions\n"
-				+ "and your program doesn't run, it's on you.\n"
-				+ "Instructions:\n"
-				+ "search_song_title [title of the song you want to search]\n"
-				+ "search_song_artist [name of the artist you want to search]\n"
-				+ "search_album_title [title of the album you want to search]\n"
-				+ "search_album_artist [artist of the album you want to search]\n"
-				+ "new_playlist [name of the playlist you want to create]\n"
-				+ "Please note that if you want to add to a song to a playlist, you need to search it first.\n"
-				+ "So afte you search, you either one of these or multiple: \n"
-				+ "add_Playlist [name of the song / artist / album] [name of the playlist you want to add the song to]\n"
-				+ "remove_Playlist [name of the song / artist / album you want to remove from] [name of the play you want to remove from\n"
-				+ "add_Song [name of the song / artist / album  you want to add to your library] \n"
-				+ "remove_Song [name of the song / artist / album you want to remove from your library]\n"
-				+ "add_Album [name of the album / artist / album you want to add to your library]\n"
-				+ "remove_Album [name of the album / artist / album] you want to remove from your library\n"
-				+ "rate [name of the song / artist / album] you want to rate in your library\n"
-				+ "EXIT [exits the program]"
-				+ "");
+				+ "and your program doesn't run, it's on you.\n \n"
+				+ "Instructions:\n \n"
+				+ "To search: type SEARCH ");
+					
 		
-		
-		
-		
-		// print the instruction manual
-			// this follows a Design By Contract methodology
-			// * You cannot rate a song you do not have in your library or your playlist or your
-		
-			// search_song_title _____ -> implement the method and return [song1, song2, etc.]
-			// search_song_artist ____ -> same implementation as above
-			// search_album_title ____-> [album1]
-			// search_album_artist ___
-		
-			// new_playlist -> create a new playlist object and add it to the arraylist of playlists
-			// print that you need to search for songs first
-		
-			// example scenario:
-		
-				// search for a song by title
-				// give the result (ex. Lovesong by Adele and Lovesong by OneRepublic (not true)) 
-				// add_PlayList [Song_name/artist/album] to PlayListName -> Implement the addPlayList
-				// go over the song list, find the song based on the song_name, artist, album
-				// return the song object
-				// addPlaylist() -> find the playlist in the playlist arraylist, add the song to the playlist
-	
-				// add_Song [Song_name/artist/album] -> call the add_Song() method
-				// addSong() -> go over the song list find the song based on the song_name, artist, album
-				// add it to the library
-		
-				// add_Album [Album name / artist  ] -> call the addAlbum() method
-				// search if that album exists (by Title or by Artist)
-				// [album1, album2...]
-				// addAlbum() -> add that album to the album arraylist in the library
-		
-				// search the lib
-					// same search functions except you will run these on three arraylists
-		
-				// get lists [title/artists/albums/playlists]
-					// go over all the library stuff
-				
-				// once you built your library, you can rate songs
-				// command
-					// rate [Song name]
-						// search by title in your library
-						// return hashset
-						// take that song 
+//				+ "search_song_title [title of the song you want to search]\n"
+//				+ "search_song_artist [name of the artist you want to search]\n"
+//				+ "search_album_title [title of the album you want to search]\n"
+//				+ "search_album_artist [artist of the album you want to search]\n"
+//				+ "new_playlist [name of the playlist you want to create]\n"
+//				+ "Please note that if you want to add to a song to a playlist, you need to search it first.\n"
+//				+ "So afte you search, you either one of these or multiple: \n"
+//				+ "add_Playlist [name of the song / artist / album] [name of the playlist you want to add the song to]\n"
+//				+ "remove_Playlist [name of the song / artist / album you want to remove from] [name of the play you want to remove from\n"
+//				+ "add_Song [name of the song / artist / album  you want to add to your library] \n"
+//				+ "remove_Song [name of the song / artist / album you want to remove from your library]\n"
+//				+ "add_Album [name of the album / artist / album you want to add to your library]\n"
+//				+ "remove_Album [name of the album / artist / album] you want to remove from your library\n"
+//				+ "rate [name of the song / artist / album] you want to rate in your library\n"
+//				+ "EXIT [exits the program]"
+//				+ "");
 					
 		
 				
-		// be in the state of asking for input constantly
-		// 
 		
 		// initiate all the objects
 		MusicStore mS = new MusicStore();
@@ -95,9 +51,7 @@ public class TheView {
 		LibraryModel lM = new LibraryModel();
 		
 		
-		
-		// ai generated
-        Scanner scanner = new Scanner(System.in);        
+		Scanner scanner = new Scanner(System.in);        
         
         boolean programState = true;
         System.out.println("Input:");
@@ -106,55 +60,68 @@ public class TheView {
         while (programState) {
             String command = scanner.nextLine().strip();
             
-            if (command.equals("EXIT")) break;
+            if (command.equals("EXIT")) {break;}
             
-            if (command.contains("new_playlist")) {
-            	// ask what the name is 
-            	System.out.println("What's the name of the playlist?");
-            	String name = scanner.nextLine().strip();
-            	lM.initializeAPlayList(name);
+            
+            else if (command.toLowerCase().equals("rate")) {
+            	System.out.println("In order to rate, you must have songs in the library"); // be at the top
+            	
+            	System.out.println("Choose a rating from 1-5");
+            	String ratingCommand = scanner.nextLine();
+            	Rating rating  = convertToEnums(Integer.valueOf(ratingCommand));
+            	
+            	System.out.println("What's the song name?");
+            	String songNameCommand = scanner.nextLine().strip();
+            	
+            	System.out.println("Who's the artist of the song?");
+            	String songArtistCommand = scanner.nextLine().strip();
+            	
+            	System.out.println("What's the album the song belongs to?");
+            	String songAlbumCommand = scanner.nextLine().strip();
+            	
+            	// search in the library
+            	lM.rateTheSong(songNameCommand, songArtistCommand, songAlbumCommand, rating);
+            	System.out.println("Song is rated.");
+            	
+            }
+            
+            
+            // get a list of song titles from the library
+            if (command.toLowerCase().contains("getLib")) {
+            	// ask what they want to get from the library
+            	System.out.println("What do you want to get from the library?");
+            	String gettersCommand = scanner.nextLine().strip();
+            	if (gettersCommand.contains("song")) {}
+            	else if (gettersCommand.contains("artists")) {
+            		
+            	}
+            	else if (gettersCommand.contains("albums")) {}
+            	else if (gettersCommand.contains("playlists")) {}
+            	else if (gettersCommand.contains("favorite")) {}
+            	
+            }
+
+            
+            
+            else if (command.contains("search")) {
+            	
+            	System.out.println("What do you want to search? Database or library?");
+            	String searchCommand = scanner.nextLine().strip();
+            	
+            	if (searchCommand.toLowerCase().contains("database")) { searchDatabase(scanner, mS, lM);}
+            	
+            	else if (searchCommand.toLowerCase().contains("library")) { 
+            		searchLib(scanner, lM);
+            		continue;
+            	}
+            	
+            }
+            else if (command.contains("add_Song")) { 
+            	System.out.println("You need to search the song first, then add.");
             	continue;
             }
-            
-            if (command.contains("search_song_title")) {
-            	System.out.println("What's the name of the song?");
-            	String songTitle1 = scanner.nextLine().strip();
-            	ArrayList<Song> songsSearched1 = mS.searchSongByTitle(songTitle1);
-
-            	String command2 = scanner.nextLine().strip();
-            	if (command2.contains("add_Song")); addSongHelper(scanner, songsSearched1, lM, command2);
-            	if (command2.contains("add_Playlist")); addPlaylistHelper(scanner, songsSearched1, lM, command2);
-            }
-            
-            if (command.contains("search_song_artist")) {
-            	System.out.println("What's the artist of the song?");
-            	String songArtist1 = scanner.nextLine().strip();
-            	ArrayList<Song> songsSearched2 = mS.searchSongByArtist(songArtist1);
-            	
-            	String command3 = scanner.nextLine().strip();
-            	if (command3.contains("add_Song")); addSongHelper(scanner, songsSearched2, lM, command3);
-            	if (command3.contains("add_Playlist")); addPlaylistHelper(scanner, songsSearched2, lM, command3);
-            	
-            }
-            
-            if (command.contains("search_album_title")) {
-            	System.out.println("What's the name of the album?");
-            	String albumName1 = scanner.nextLine().strip();
-            	ArrayList<Album> albumsSearched1 = mS.searchAlbumByTitle(albumName1);
-            	
-            	addAlbumHelper(scanner, albumsSearched1, lM);
-            	
-            }
-            
-            if (command.contains("search_album_artist")) {
-            	System.out.println("What's the name of the album artist?");
-            	String albumArtist1 = scanner.nextLine().strip();
-            	ArrayList<Album> albumsSearched2 = mS.searchAlbumByArtist(albumArtist1);
-            	
-            	addAlbumHelper(scanner, albumsSearched2, lM);
-            }
-            
-            if (command.contains("remove_Playlist")) {
+            else if (command.toLowerCase().contains("new_playlist")) { newPlaylistExecuter(scanner, lM);}
+            else if (command.toLowerCase().contains("remove_Playlist")) {
             	System.out.println("What's the name of the playlist you want to remove songs from?");
             	String playListName2 = scanner.nextLine().strip();
             	PlayList playList2 = lM.findPlaylist(playListName2);
@@ -177,36 +144,6 @@ public class TheView {
             	
             }
             
-            // if command is equal to search lib, search lib
-            
-            if (command.contains("search_lib")) {
-            	// ask if they want to search a song
-            	System.out.println("Song or Album?");
-            	String typeToSearch = scanner.nextLine();
-            	
-            	if (typeToSearch.contains("album")) {
-            		// ask for all the album info and search album
-            		System.out.println("Do you want to search by title or artist");
-            		String command4 = scanner.nextLine();
-            		if (command4.contains("title")) {
-            			System.out.println("What's the name of the album you want to search?");
-            			String command5 = scanner.nextLine().strip();
-            			ArrayList<Album> albumsSearched = lM.searchAlbumByTitleLib(command5);
-            		} // call the search by title method
-            		 // call the search by artist
-            		
-            		
-            	}
-            	
-            	if (typeToSearch.contains("song")) {
-            		// ask for all the song info and search song
-            		
-            		// song by title, artist
-            	}
-            	if (typeToSearch.contains("playlist")) {
-            		// search the playlist by its name
-            	}
-            }
             
             
         }     
@@ -214,81 +151,281 @@ public class TheView {
         System.out.println("Program terminated. Thanks for using our products!");
 		
 	}
-	public static void addSongHelper(Scanner scanner, ArrayList<Song> songsSearched1, LibraryModel lM, String command2) {
+	
+	
+	
+	public static void searchDatabase(Scanner scanner, MusicStore mS, LibraryModel lM) {
+		// print you can search the database like: 
+		// list the valid commands
+		System.out.println("Which way do you want to search? ");
+		System.out.println("* Song");
+		System.out.println("* Album");
+		String wayToSearch = scanner.nextLine().strip();
 		
-        if (command2.contains("add_Song")) {
+		if (wayToSearch.toLowerCase().contains("song")) {searchDatabaseSong(scanner, mS, lM);}
+		else if (wayToSearch.toLowerCase().contains("album")) {searchDatabaseAlbum(scanner, mS, lM);}
+		
+		
+		// title, artist
+		// ask title or artist
+		// implement the search
+	}
+	
+	public static void searchDatabaseSong(Scanner scanner, MusicStore mS, LibraryModel lM) {
+		System.out.println("How do you want to search?");
+		System.out.println("By:");
+		System.out.println("* title");
+		System.out.println("* artist");
+		
+		String command = scanner.nextLine().strip();
+		
+        if (command.toLowerCase().contains("title")) {
         	System.out.println("What's the name of the song?");
-        	String nameSongLib1 = scanner.nextLine().strip();
-        	
-        	System.out.println("What's the artist of the song?");
-        	String nameArtistLib1 = scanner.nextLine().strip();
-        	
-        	System.out.println("What album does the song belong to?");
-        	String nameAlbumLib1 = scanner.nextLine().strip();	
-        	
-        	// go over the songsSearched
-        	// if that has the same song name, same artist, same album
-        	// call the library model method addSong
-        	for (Song s : songsSearched1) {
-        		if (s.getSongTitle().equals(nameSongLib1) && s.getArtistName().equals(nameArtistLib1) 
-        				&& s.getAlbumTitle().equals(nameAlbumLib1)) {
-        			lM.addSong(s);
-        		}
-        	}
-        	System.out.println(lM.getSongsLib());
-        	
-        }
-	}
-	
-	public static void addAlbumHelper(Scanner scanner, ArrayList<Album> albumsSearched2, LibraryModel lM) {
-		String command3 = scanner.nextLine().strip();
-    	
-    	if (command3.contains("add_Album")) {
-        	System.out.println("What's the name of the album?");
-        	String nameAlbumLib1 = scanner.nextLine().strip();
-        	
-        	System.out.println("What's the artist of the album?");
-        	String nameArtistLib1 = scanner.nextLine().strip();
-        
-        	
-        	// go over the albumsSearched
-        	// if that has the same album name, album artist,
-        	// call the library model method add Album
-        	for (Album a : albumsSearched2) {
-        		if (a.getTitle().equals(nameAlbumLib1) && a.getArtist().equals(nameArtistLib1)) {
-        			lM.addAlbum(a);
-        		}
-        	}
-        }
-	}
-	
-	public static void addPlaylistHelper(Scanner scanner, ArrayList<Song> songsSearched1, LibraryModel lM, String command2) {
-		if (command2.contains("add_Playlist")) {
-        	System.out.println("What's the name of the playlist you want to add songs to?");
-        	String playListName = scanner.nextLine().strip();
-        	PlayList playList1 = lM.findPlaylist(playListName);
-        	
-        	// find out what song the user wants to add
-        	System.out.println("What song do you want to add to this play list");
-        	String songToAddName = scanner.nextLine().strip();
-        	
-        	System.out.println("Who is the artist?");
-        	String songToAddArtist = scanner.nextLine().strip();
 
-        	System.out.println("What album does this song belong to?");
-        	String songToAddAlbum = scanner.nextLine().strip();
-        	            	
-        	// go over the songsSearched
-        	for (Song s : songsSearched1) {
-        		if (s.getSongTitle().equals(songToAddName) && s.getArtistName().equals(songToAddArtist) && 
-        				s.getAlbumTitle().equals(songToAddAlbum)) {
-        			lM.addToPlayList(s, playList1);
-        		}
+        	String songTitle1 = scanner.nextLine().strip();
+        	ArrayList<Song> songsSearched1 = mS.searchSongByTitle(songTitle1);
+
+        	System.out.println("If you want to add to your library, type ADD");
+        	
+        	String command2 = scanner.nextLine().strip();
+        	
+        	if(command2.toLowerCase().contains("add")) {
+        		
+            	System.out.println("Type SONG to add your library as a song");
+            	System.out.println("Type PLAYLIST to add to your playlist");
+            	
+            	String commandSong = scanner.nextLine().strip();
+            	
+            	if (commandSong.toLowerCase().contains("song")) {addSongHelper(scanner, songsSearched1, lM);}
+            	if (commandSong.toLowerCase().contains("playlist")) { addPlaylistHelper(scanner, songsSearched1, lM);}
         	}
-        	System.out.println(lM.getPlayListLib());
+        	
+        }
+        
+        else if (command.toLowerCase().contains("artist")) {
+        	System.out.println("Who's the artist of the song?");
+        	String songArtist1 = scanner.nextLine().strip();
+        	ArrayList<Song> songsSearched2 = mS.searchSongByArtist(songArtist1);
+        	
+        	System.out.println("\nIf you want to add to your library, type ADD");
+        	
+        	String command3 = scanner.nextLine().strip();
+        	if(command3.toLowerCase().contains("add")) {
+        		
+            	System.out.println("Type SONG to add your library as a song");
+            	System.out.println("Type PLAYLIST to add to your playlist");
+            	
+            	String commandSong = scanner.nextLine().strip();
+            	
+            	if (commandSong.toLowerCase().contains("song")) {addSongHelper(scanner, songsSearched2, lM);}
+            	if (commandSong.toLowerCase().contains("playlist")) { addPlaylistHelper(scanner, songsSearched2, lM);}
+        	}
+        	
+
         }
 	}
 	
+	public static void searchDatabaseAlbum(Scanner scanner, MusicStore mS, LibraryModel lM) {
+		
+		System.out.println("How do you want to search?");
+		System.out.println("By:");
+		System.out.println("* title");
+		System.out.println("* artist");
+		
+		String command = scanner.nextLine().strip();
+        if (command.toLowerCase().contains("title")) {
+        	System.out.println("What's the name of the album?");
+        	String albumName1 = scanner.nextLine().strip();
+        	ArrayList<Album> albumsSearched1 = mS.searchAlbumByTitle(albumName1);
+        	
+        	String addAlbumCommand1 = scanner.nextLine().strip();
+        	if(addAlbumCommand1.toLowerCase().contains("add album")) {addAlbumHelper(scanner, albumsSearched1, lM);}
+        }
+        else if (command.toLowerCase().contains("artist")) {
+        	System.out.println("Who's the artist?");
+        	String artistName1 = scanner.nextLine().strip();
+        	ArrayList<Album> albumsSearched1 = mS.searchAlbumByArtist(artistName1);
+        	
+        	String addAlbumCommand2 = scanner.nextLine().strip();
+        	if(addAlbumCommand2.toLowerCase().contains("add album")) { addAlbumHelper(scanner, albumsSearched1, lM);}
+        }
+	}
+	
+	
+	public static void searchLib(Scanner scanner, LibraryModel lM) {
+		// print you can search the database like:
+		// list the valid commands
+		System.out.println("Which way do you want to search? ");
+		System.out.println("* Song");
+		System.out.println("* Album");
+		System.out.println("* Playlist");
+		// System.out.println("* Favorite");
+		
+		String command = scanner.nextLine().strip();
+		
+    	// Search Album from your lib by title and artist
+    	
+    	if (command.toLowerCase().contains("album")) {
+    		// ask for all the album info and search album
+    		System.out.println("Do you want to search by title or artist");
+    		String albumCommand = scanner.nextLine();
+    		
+    		// search album by title 
+    		if (albumCommand.toLowerCase().contains("title")) {
+    			System.out.println("What's the name of the album you want to search?");
+    			String command5 = scanner.nextLine().strip();
+    			ArrayList<Album> albumsSearched = lM.searchAlbumByTitleLib(command5);
+    			System.out.println(albumsSearched);
+    		} 
+    		
+    		
+    		// search album by artist
+    		else if (albumCommand.toLowerCase().contains("artist")) {
+    			System.out.println("Who's the artist of the album you want to search?");
+    			String command5 = scanner.nextLine().strip();
+    			ArrayList<Album> albumsSearched = lM.searchAlbumByArtist(command5);
+    			System.out.println(albumsSearched);
+    		} 
+    	
+        }	
+    	
+    	
+    	// Search Song from your lib by title and song
+    	
+    	else if (command.toLowerCase().contains("song")) {
+    		// ask for all the song info and search song
+    		System.out.println("Do you want to search by title or artist");
+    		String songCommand = scanner.nextLine();
+
+    		// search by title
+    		if (songCommand.toLowerCase().contains("title")) {
+    			System.out.println("What's the name of the song you want to search?");
+    			String command5 = scanner.nextLine().strip();
+    			HashSet<Song> songsSearched1 = lM.searchSongByTitleLib(command5);
+    			System.out.println(songsSearched1);
+    		} 
+    		// search by artist
+    		else if (songCommand.toLowerCase().contains("artist")) {
+    			System.out.println("Who's the artist of the song you want to search?");
+    			String command5 = scanner.nextLine().strip();
+    			HashSet<Song> songsSearched2 = lM.searchSongByArtistLib(command5);
+    			System.out.println(songsSearched2);
+    		}
+    	}
+    	
+    	// Search playlist from your lib 
+    
+    	else if (command.contains("playlist")) {
+    		// search the playlist by its name
+    		// ask what playlist 
+    		// check that user has playlists 
+    		System.out.println("Did you create any playlists?");
+    		System.out.println("In order to use this, you need to have a playlist");
+    		System.out.print("which you can create through NEW_PLAYLIST. \n");
+    		System.out.println("What's the name of your playlist");
+    		String playListNameCommand = scanner.nextLine().strip();
+    		// call a method in the library model that searches the playlist, finds the one with the name, 
+    		// print the playlist
+    		lM.searchPlaylistByNameLib(playListNameCommand);
+    	}
+		
+	}
+	
+	
+	public static void newPlaylistExecuter(Scanner scanner, LibraryModel lM) {
+		System.out.println("What's the name of the playlist?");
+		String name = scanner.nextLine().strip();
+		lM.initializeAPlayList(name);
+	}
+	
+	public static void addSongHelper(Scanner scanner, ArrayList<Song> songsSearched1, LibraryModel lM) {
+    	System.out.println("What's the name of the song?");
+    	String nameSongLib1 = scanner.nextLine().strip();
+    	
+    	System.out.println("Who's the artist of the song?");
+    	String nameArtistLib1 = scanner.nextLine().strip();
+    	
+    	System.out.println("What album does the song belong to?");
+    	String nameAlbumLib1 = scanner.nextLine().strip();	
+    	
+    	// go over the songsSearched
+    	// if that has the same song name, same artist, same album
+    	// call the library model method addSong
+    	for (Song s : songsSearched1) {
+    		if (s.getSongTitle().equals(nameSongLib1) && s.getArtistName().equals(nameArtistLib1) 
+    				&& s.getAlbumTitle().equals(nameAlbumLib1)) {
+    			lM.addSong(s);
+    		}
+    	}
+    	System.out.println("Song succesfully added to the library.");
+    	System.out.println("If you want to add a song again, search it first!");
+	}
+	
+	public static void addAlbumHelper(Scanner scanner, ArrayList<Album> albumsSearched2, LibraryModel lM) {    	
+    	System.out.println("What's the name of the album?");
+    	String nameAlbumLib1 = scanner.nextLine().strip();
+    	
+    	System.out.println("What's the artist of the album?");
+    	String nameArtistLib1 = scanner.nextLine().strip();
+    
+    	
+    	// go over the albumsSearched
+    	// if that has the same album name, album artist,
+    	// call the library model method add Album
+    	for (Album a : albumsSearched2) {
+    		if (a.getTitle().equals(nameAlbumLib1) && a.getArtist().equals(nameArtistLib1)) {
+    			lM.addAlbum(a);
+    		}
+    	}
+    	System.out.println("Album succesfully added to the library.");
+	}
+	
+	
+	public static void addPlaylistHelper(Scanner scanner, ArrayList<Song> songsSearched1, LibraryModel lM) {
+    	System.out.println("What's the name of the playlist you want to add songs to?");
+    	String playListName = scanner.nextLine().strip();
+    	PlayList playList1 = lM.findPlaylist(playListName);
+    	
+    	// find out what song the user wants to add
+    	System.out.println("What song do you want to add to this play list");
+    	String songToAddName = scanner.nextLine().strip();
+    	
+    	System.out.println("Who is the artist?");
+    	String songToAddArtist = scanner.nextLine().strip();
+
+    	System.out.println("What album does this song belong to?");
+    	String songToAddAlbum = scanner.nextLine().strip();
+    	            	
+    	// go over the songsSearched
+    	for (Song s : songsSearched1) {
+    		if (s.getSongTitle().equals(songToAddName) && s.getArtistName().equals(songToAddArtist) && 
+    				s.getAlbumTitle().equals(songToAddAlbum)) {
+    			lM.addToPlayList(s, playList1);
+    		}
+    	}
+    	System.out.println("Playlist succesfully added to the library.");
+
+	}
+	
+	public static Rating convertToEnums(int num) {
+		Rating rating = Rating.NULL;
+		if (num == 1) {
+			rating = Rating.ONE;
+		}
+		else if (num == 2) {
+			rating = Rating.TWO;
+		}
+		else if (num == 3) {
+			rating = Rating.THREE;
+		}
+		else if (num == 4) {
+			rating = Rating.FOUR;
+		}
+		else if (num >= 5) {
+			rating = Rating.FIVE;
+		}
+		return rating;
+	}
 	
 	
 	

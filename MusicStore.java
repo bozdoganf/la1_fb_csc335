@@ -115,7 +115,7 @@ public class MusicStore {
 				System.out.println(a.getGenre());
 				System.out.println(a.getYear());
 				a.getAlbumSongs();
-				found.remove(false);
+				if (found.contains(false))found.remove(false);
 				found.add(true);
 			}
 			
@@ -145,10 +145,9 @@ public class MusicStore {
 				System.out.println(a.getGenre());
 				System.out.println(a.getYear());
 				a.getAlbumSongs();
-				found.remove(false);
+				if (found.contains(false))found.remove(false);
 				found.add(true);
 			}
-			
 		}
 		
 		if(!(found.get(0))){

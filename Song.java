@@ -19,4 +19,13 @@ public class Song {
 	public String getAlbumTitle() {return albumTitle;}
 	public Rating getSongRating() {return rating;}
 	public boolean getFavStatus() {return favStatus;}
+	
+	
+	
+	public void setRating(Rating rating) {
+		if (rating == Rating.FIVE) {
+			this.favStatus = true;
+		}
+		this.rating = rating;
+	}
 }
