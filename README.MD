@@ -1,14 +1,5 @@
 # Musices Optimus
-The ultimate music platform designed by Fatih Bozdogan and Behruz Ernazarov.
-
-### Instructions Manual:
-
-### Available features (Version 0.0.1):
-          - Search songs
-          - Create own playlist
-          - Rate songs 
-          - Make a list of favorites 
-          - Create own album
+The ultimate music platform designed by Fatih Bozdogan and Behruz Ernazarov. Use the view file to run everything
 
 ### Architecture / UML Diagram
 It doesn't allow me to download it so here's the link:
