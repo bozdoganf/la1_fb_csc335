@@ -29,9 +29,15 @@ public class Album {
 		songs.add(s);
 	}
 
-	public void getAlbumSongs() {
-		for (int i = 0; i < songs.size(); i++) {
-			System.out.println(songs.get(i).getSongTitle());
+	public void retrieveAlbumSongs(HashSet<Song> res) {
+		for (Song s : songs ) {
+			res.add(s);
+		}
+	}
+	
+	public void printAllSongs() {
+		for (Song s : songs) {
+			System.out.println(s.getSongTitle());
 		}
 	}
 	

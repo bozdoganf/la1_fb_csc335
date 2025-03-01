@@ -110,11 +110,14 @@ public class MusicStore {
 			// call the helper search method
 			if(albumTitle.equals(a.getTitle())) {
 				albumSearched1.add(a);
+
 				System.out.println(a.getTitle());
 				System.out.println(a.getArtist());
 				System.out.println(a.getGenre());
 				System.out.println(a.getYear());
-				a.getAlbumSongs();
+				
+				
+				
 				if (found.contains(false))found.remove(false);
 				found.add(true);
 			}
@@ -139,14 +142,17 @@ public class MusicStore {
 		for (Album a : albums ) {
 			// call the helper search method
 			if(albumArtist.equals(a.getArtist())) {
+				
 				albumSearched2.add(a);
 				System.out.println(a.getTitle());
 				System.out.println(a.getArtist());
 				System.out.println(a.getGenre());
 				System.out.println(a.getYear());
-				a.getAlbumSongs();
+				
 				if (found.contains(false))found.remove(false);
 				found.add(true);
+				
+				a.printAllSongs();
 			}
 		}
 		

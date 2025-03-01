@@ -22,11 +22,25 @@ public class LibraryModel {
 	}
 	
 	public void addSong(Song s) {
+		if (songLib.contains(s)) {
+			System.out.println("Song is already in the library.");
+			System.out.println("Add another song. Don't forget to search first!");
+			return;
+		}
+    	System.out.println("Song succesfully added to the library.");
+    	System.out.println("If you want to add a song again, search it first!");
 		songLib.add(s);
 	}
 	
 
 	public void addAlbum(Album a) {
+		if (albumsLib.contains(a)) {
+			System.out.println("Album is alredy in the library");
+			System.out.println("Add another song. Don't forget to search first!");
+			return;
+		}
+    	System.out.println("Album succesfully added to the library.");
+    	System.out.println("If you want to add a song again, search it first!");
 		albumsLib.add(a);
 	}
 	
@@ -40,6 +54,13 @@ public class LibraryModel {
 	}
 	
 	public void addToPlayList(Song s, PlayList p) {
+		if (p.findSong(s.getSongTitle(), s.getArtistName(), s.getAlbumTitle()) != null) {
+			System.out.println("The song is already in the playlist");
+			System.out.println("Add another song. Don't forget to search first!");
+			return;
+		}
+    	System.out.println("Song succesfully added to the playlist.");
+    	System.out.println("If you want to add a song again, search it first!");
 		p.addSong(s);
 	}
 	
@@ -59,7 +80,6 @@ public class LibraryModel {
 				System.out.println(a.getArtist());
 				System.out.println(a.getGenre());
 				System.out.println(a.getYear());
-				a.getAlbumSongs();
 				found.remove(false);
 				found.add(true);
 			}
@@ -89,7 +109,6 @@ public class LibraryModel {
 				System.out.println(a.getArtist());
 				System.out.println(a.getGenre());
 				System.out.println(a.getYear());
-				a.getAlbumSongs();
 				found.remove(false);
 				found.add(true);
 			}
@@ -213,24 +232,78 @@ public class LibraryModel {
 		Song s = this.findTheSongLM(songTitle, artistName, albumTitle);
 		// set the song rating
 		s.setRating(rating);
-		System.out.println(s.getSongRating());
-		System.out.println(s.getFavStatus());
+		System.out.println("The song's rating has been set at " + s.getSongRating());
 	}
 	
-	
-	// testing methods to print sing list and album list
 	
 	public void getSongsLib() {
 		// have a hash set
+		HashSet<Song> res = new HashSet<Song>();
+
+		for (Album a : albumsLib) {
+			a.retrieveAlbumSongs(res);
+		}
+		// go over the songs
+		for (Song s : songLib) {
+			res.add(s);
+		}
+		// go over the Playlists
+		for (PlayList p : playListLib) {
+			p.retrievePlayListSongs(res);
+		}
 		
+		for (Song s : res) {
+			System.out.println(s.getSongTitle());
+		}		
 	}
 	
-	public ArrayList<Album> getAlbumsLib() {
-		return albumsLib;
+	public HashSet<Song> getUniqueSongs() {
+		// have a hash set
+		HashSet<Song> res = new HashSet<Song>();
+
+		for (Album a : albumsLib) {
+			a.retrieveAlbumSongs(res);
+		}
+		// go over the songs
+		for (Song s : songLib) {
+			res.add(s);
+		}
+		// go over the Playlists
+		for (PlayList p : playListLib) {
+			p.retrievePlayListSongs(res);
+		}
+			
+		return res;
 	}
 	
-	public ArrayList<PlayList> getPlayListLib() {
-		return playListLib;
+	public void getArtistsLib() {
+		HashSet<Song> songsMap = this.getUniqueSongs();
+		HashSet<String> artistMap = new HashSet<>();
+		
+		for (Song s : songsMap) {
+			artistMap.add(s.getArtistName().strip());
+		}
+		
+		for (String artistName : artistMap) {
+			System.out.println(artistName);
+		}
+	}
+	
+	// to get all the albums, go over all the unique songs
+	// get their albums into a hashset
+	// print them
+	public void getAlbumsLib() {
+		HashSet<Song> songsMap = this.getUniqueSongs();
+		HashSet<String> albumsMap = new HashSet<>();
+		
+		for (Song s : songsMap) {
+			albumsMap.add(s.getAlbumTitle());
+		}
+		
+		for (String albumName : albumsMap) {
+			System.out.println(albumName);
+		}
+		
 	}
 	
 	

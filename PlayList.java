@@ -45,10 +45,6 @@ public class PlayList {
 		return false;
 	}
 	
-	public ArrayList<Song> getSongs() {
-		return songs;
-	}
-	
 	public void searchSongByArtist(String artist, ArrayList<Boolean> found, HashSet<Song> songsSearched2) {
 		
 		for(Song song: songs) {
@@ -81,6 +77,13 @@ public class PlayList {
 		for (Song s : songs) {
 			System.out.println("Song name " + s.getSongTitle());
 			System.out.println("Song artist: " + s.getArtistName());
+		}
+	}
+	
+	
+	public void retrievePlayListSongs(HashSet<Song> res) {
+		for (Song s : songs ) {
+			res.add(s);
 		}
 	}
 	

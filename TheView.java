@@ -81,24 +81,29 @@ public class TheView {
             	
             	// search in the library
             	lM.rateTheSong(songNameCommand, songArtistCommand, songAlbumCommand, rating);
-            	System.out.println("Song is rated.");
+            	continue;
             	
             }
             
             
             // get a list of song titles from the library
-            if (command.toLowerCase().contains("getLib")) {
+            else if (command.toLowerCase().contains("get")) {
             	// ask what they want to get from the library
-            	System.out.println("What do you want to get from the library?");
-            	String gettersCommand = scanner.nextLine().strip();
-            	if (gettersCommand.contains("song")) {}
-            	else if (gettersCommand.contains("artists")) {
-            		
-            	}
-            	else if (gettersCommand.contains("albums")) {}
-            	else if (gettersCommand.contains("playlists")) {}
-            	else if (gettersCommand.contains("favorite")) {}
+            	System.out.println("You can get the following from your library:\nsongs, artists, albums, playlists, favorite");
             	
+            	String gettersCommand = scanner.nextLine().strip();
+            	if (gettersCommand.toLowerCase().contains("songs")) {
+            		lM.getSongsLib();
+            	}
+            	else if (gettersCommand.toLowerCase().contains("artists")) {
+            		lM.getArtistsLib();
+            	}
+            	else if (gettersCommand.toLowerCase().contains("albums")) {
+            		// to get all the albums
+            		lM.getAlbumsLib();
+            	}
+            	else if (gettersCommand.toLowerCase().contains("playlists")) {}
+            	else if (gettersCommand.toLowerCase().contains("favorite")) {}
             }
 
             
@@ -137,8 +142,9 @@ public class TheView {
             	String songToAddAlbum2 = scanner.nextLine().strip();
             	            	
             	// go over the songsSearched
-            	if (!(playList2.isEmpty())); playList2.removeSong(songToAddName2, songToAddArtist2, songToAddAlbum2);
-            	System.out.println(playList2.getSongs());
+            	if (!(playList2.isEmpty())) { 
+            		playList2.removeSong(songToAddName2, songToAddArtist2, songToAddAlbum2);
+            	}
             	
             	// if the playlist is empty, then it's empty
             	
@@ -238,16 +244,25 @@ public class TheView {
         	String albumName1 = scanner.nextLine().strip();
         	ArrayList<Album> albumsSearched1 = mS.searchAlbumByTitle(albumName1);
         	
+        	System.out.println("Type ADD ALBUM to add your library as a song");
+
         	String addAlbumCommand1 = scanner.nextLine().strip();
+        	
         	if(addAlbumCommand1.toLowerCase().contains("add album")) {addAlbumHelper(scanner, albumsSearched1, lM);}
+        	else {System.out.println("Invalid input. You are now back at the initial directory. Type SEARCH to search");}
         }
         else if (command.toLowerCase().contains("artist")) {
         	System.out.println("Who's the artist?");
+        	
         	String artistName1 = scanner.nextLine().strip();
+        	
         	ArrayList<Album> albumsSearched1 = mS.searchAlbumByArtist(artistName1);
         	
+        	System.out.println("Type ADD ALBUM to add your library as a song");
         	String addAlbumCommand2 = scanner.nextLine().strip();
+        	
         	if(addAlbumCommand2.toLowerCase().contains("add album")) { addAlbumHelper(scanner, albumsSearched1, lM);}
+        	else {System.out.println("Invalid input. You are now back at the initial directory. Type SEARCH to search");}
         }
 	}
 	
@@ -355,10 +370,10 @@ public class TheView {
     		if (s.getSongTitle().equals(nameSongLib1) && s.getArtistName().equals(nameArtistLib1) 
     				&& s.getAlbumTitle().equals(nameAlbumLib1)) {
     			lM.addSong(s);
+    	    	return;
     		}
     	}
-    	System.out.println("Song succesfully added to the library.");
-    	System.out.println("If you want to add a song again, search it first!");
+    	System.out.println("Couldn't add the song. Check your responses. Now you are at the initial directory.");
 	}
 	
 	public static void addAlbumHelper(Scanner scanner, ArrayList<Album> albumsSearched2, LibraryModel lM) {    	
