@@ -1,8 +1,6 @@
-//package la1_fbbe;
-
-import java.io.File;
+package la2;
 
 public enum Rating {
-	NULL, ONE, TWO, THREE, FOUR, FIVE
+	ONE, TWO, THREE, FOUR, FIVE
 }
 

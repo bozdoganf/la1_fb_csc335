@@ -1,3 +1,5 @@
+package la2;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -5,34 +7,39 @@ import java.util.Scanner;
 
 public class MusicStore {
 	
-	private static ArrayList<Album> albums;
+	private ArrayList<Album> albums;
 	
 	public MusicStore() {
 		albums = new ArrayList<>();
 	}
 	
-	public void configureMS() {
+	
+	public void configureMS(String filePath) {
 		
-		
-		//go over each file
-		File dir = new File("/Users/behruzernazarov/eclipse-workspace/Music/src");
-		File[] filesArr = dir.listFiles();
-		
-		
-		
-		for (File f : filesArr) {
-			if (!f.getName().equals("albums.txt")) {
-				if (f.getName().contains(".txt")) {
-					processFile(f);
-				}
-				
-			}
-		}
+		File dir = new File(filePath);
+	    File[] filesArr = dir.listFiles();
+	    
+	    
+	    // go over each file in the list of files we have in the directory
+	    for (File f : filesArr) {
+	    	if (!f.getName().equals("albums.txt")) {
+	    		if (f.getName().contains(".txt")) {
+	    			// 
+	    			try {
+						this.processFile(f);
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    	}
+	    }
 	}
-	private static void processFile(File f) {
-		try {
+	private void processFile(File f) throws FileNotFoundException {
+			
 			Scanner scanner = new Scanner(f);
-
+			
+			
+			// create an album class and fill its info with the first line of each file
 			Album album;
 			String line = scanner.nextLine();
 			String[] lineArr = line.strip().split(",");
@@ -43,125 +50,111 @@ public class MusicStore {
 			
 			album = new Album(albumTitle, artistName, genre, year);
 		
+			// add the album to our database
 			albums.add(album);
 			
+			
+			// go over all the lines after the first one, build song objects with them and add them to the album
 			while(scanner.hasNext()) {
+				
 				line = scanner.nextLine();
+				
 				String songTitle = line.strip();
-				Song song = new Song(songTitle.strip(), album.getArtist(), album.getTitle());
-				album.buildAlbum(song);
+								
+				album.addSong(songTitle, album.getArtist(), album.getTitle());
 			}
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-	}	
-	///////////////// Search Song by Song title /////////////////
+	}		
 	
+	// SEARCH
 	public ArrayList<Song> searchSongByTitle(String songTitle){
-		ArrayList<Boolean> found = new ArrayList<>();
-		found.add(false);
 		
-		ArrayList<Song> songsSearched1 = new ArrayList<>();
+		ArrayList<Song> songsFoundByTitle = new ArrayList<>();
 		
 		for (Album a : albums ) {
-			// call the helper search method
-			a.searchSongByTitle(songTitle, found, songsSearched1);
+			// this finds all the songs with that title in that album and returns a deep copy of themn
+			ArrayList<Song> songsFoundCopy = a.findSongsByTitle(songTitle);
+			// now go over all the songs found in that album with that title and add them to the list
+			for (Song s : songsFoundCopy) {
+				songsFoundByTitle.add(s);
+			}
 		}
-		if (!(found.get(0))) {
-			System.out.println("The search not found in our database :(");
-		}
-		return songsSearched1;
+		return songsFoundByTitle;
 	}
 	
-	///////////////// Search Song by Artist name /////////////////
-	
-	public ArrayList<Song> searchSongByArtist(String artist){
+	public ArrayList<Song> searchSongByArtist(String songArtist){
 		
-		
-		ArrayList<Boolean> found = new ArrayList<>();
-		found.add(false);
-		
-		ArrayList<Song> songsSearched2 = new ArrayList<>();
-		
+		ArrayList<Song> songsFoundByArtist = new ArrayList<>();
 		
 		for (Album a : albums ) {
-			// call the helper search method
-			a.searchSongByArtist(artist, found, songsSearched2);
-			
+			if (songArtist.equals(a.getArtist())) {
+				ArrayList<Song> songsToAdd = a.getSongs();
+				for (Song s : songsToAdd) {
+					songsFoundByArtist.add(s);
+				}
+			}
 		}
-		if (!(found.get(0))) {
-			System.out.println("The search not found in our database :(");
-		}
-		return songsSearched2;
+		return songsFoundByArtist;
 	}
-	
-	
-	///////////////// Search Album by Album title /////////////////
 	
 	public ArrayList<Album> searchAlbumByTitle(String albumTitle){
-		ArrayList<Boolean> found  =  new ArrayList<>();
-		found.add(false);
-		
-		ArrayList<Album> albumSearched1 = new ArrayList<>();
-
-		
+		ArrayList<Album> albumsFoundByTitle = new ArrayList<>();
 		for (Album a : albums ) {
-			// call the helper search method
-			if(albumTitle.equals(a.getTitle())) {
-				albumSearched1.add(a);
-
-				System.out.println("Album title: " + a.getTitle());
-				System.out.println("Album artist: " + a.getArtist());
-				System.out.println("Album genre: " + a.getGenre());
-				System.out.println("Album year: " + a.getYear());
-				
-				a.printAllSongs();
-				
-				if (found.contains(false))found.remove(false);
-				found.add(true);
-			}
-			
-		}
-		if(!(found.get(0))){
-			System.out.println("The search not found in our database :(");
-		}
-		return albumSearched1;
-
+			if(albumTitle.equals(a.getTitle())) {albumsFoundByTitle.add(a);}
+		}		
+		return this.deepCopyAlbum(albumsFoundByTitle);
 	}
-	
-	///////////////// Search Album by Artist name /////////////////
 	
 	public ArrayList<Album> searchAlbumByArtist(String albumArtist){
-		ArrayList<Boolean> found  =  new ArrayList<>();
-		found.add(false);
-		
-		ArrayList<Album> albumSearched2 = new ArrayList<>();
-
-		
+		ArrayList<Album> albumsFoundByArtist = new ArrayList<>();
 		for (Album a : albums ) {
-			// call the helper search method
-			if(albumArtist.equals(a.getArtist())) {
-				
-				albumSearched2.add(a);
-				System.out.println("Album title " + a.getTitle());
-				System.out.println("Album artist " + a.getArtist());
-				System.out.println("Album genre " + a.getGenre());
-				System.out.println("Album year " + a.getYear());
-				
-				if (found.contains(false))found.remove(false);
-				found.add(true);
-				
-				a.printAllSongs();
-			}
-		}
-		
-		if(!(found.get(0))){
-			System.out.println("The search not found in our database :(");
-		}
-		
-		return albumSearched2;
-				
+			if(albumArtist.equals(a.getArtist())) {albumsFoundByArtist.add(a);}
+		}		
+		return this.deepCopyAlbum(albumsFoundByArtist);
 	}
 	
+	private ArrayList<Album> deepCopyAlbum(ArrayList<Album> albumsFoundByOriginal) {
+		ArrayList<Album> albumsFoundByDeepCopy = new ArrayList<>();
+		
+		
+		for (Album a : albumsFoundByOriginal) {
+			Album aCopy = new Album(a.getTitle(), a.getArtist(), a.getGenre(), a.getYear(), a.getSongs());
+			albumsFoundByDeepCopy.add(aCopy);
+		}
+		return albumsFoundByDeepCopy;
+	}
+	
+	public boolean songIsInMS(String songTitle, String songArtist, String albumItBelongs) {
+		// go over the albums
+		for (Album a : albums) {
+			ArrayList<Song> songsInAlbum = a.getSongs();
+			for (Song s : songsInAlbum) {
+				if (s.getSongTitle().equals(songTitle) && s.getArtistName().equals(songArtist) && s.getAlbumTitle().equals(albumItBelongs)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public boolean albumIsInMS(String albumName, String albumArtist) {
+		// go over the albums
+		for (Album a : albums) {
+			if (a.getTitle().equals(albumName) && a.getArtist().equals(albumArtist)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public Album findAlbum(String albumName, String artistName) {
+		for (Album a : albums) {
+			if (a.getTitle().equals(albumName) && a.getArtist().equals(artistName)) {
+				return a;
+			}
+		}
+		return null;
+	}
+	
+	
 }
+

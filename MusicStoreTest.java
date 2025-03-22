@@ -1,108 +1,80 @@
+package la2;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
+import java.util.Arrays;
+
+import org.junit.jupiter.api.Test;
 
 class MusicStoreTest {
-    
-    @Test
-    void testSearchSongByTitleFound() {
-        MusicStore musicStore = new MusicStore();
-        musicStore.configureMS();
-        Album album = new Album("Mission Bell", "Amos Lee", "Singer/Songwriter", "2010");
-        Song song = new Song("Windows Are Rolled Down", "Amos Lee", "Mission Bell");
-        album.buildAlbum(song);
-        
-        ArrayList<Song> result = musicStore.searchSongByTitle("Windows Are Rolled Down");
 
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        assertEquals("Windows Are Rolled Down", result.get(0).getSongTitle());
-    }
-    
-    @Test
-    void testSearchSongByTitleNotFound() {
-        MusicStore musicStore = new MusicStore();
-        musicStore.configureMS();
-        
-        ArrayList<Song> result = musicStore.searchSongByTitle("Nonexistent Song");
+	@Test
+	void testSearchAlbumByArtist() {
+		MusicStore ms = new MusicStore();
+		ms.configureMS("/Users/fatihbozdogan/Desktop/CS/CSC335/las/la2/src");
+		ArrayList<Album> albumsTest = ms.searchAlbumByArtist("Adele");
+		ArrayList<String> correctTitles = new ArrayList<>();
+		correctTitles.add("19");
+		correctTitles.add("21");
+		for (Album a : albumsTest) {
+			assertTrue(correctTitles.contains(a.getTitle()));
+		}
+	}
 
-        assertNotNull(result);
-        assertTrue(result.isEmpty());
-    }
-
-    @Test
-    void testSearchSongByArtistFound() {
-        MusicStore musicStore = new MusicStore();
-        musicStore.configureMS();
-        Album album = new Album("Mission Bell", "Amos Lee", "Singer/Songwriter", "2010");
-        Song song = new Song("Windows Are Rolled Down", "Amos Lee", "Mission Bell");
-        album.buildAlbum(song);
-        
-        ArrayList<Song> result = musicStore.searchSongByArtist("Amos Lee");
-
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        assertEquals("Windows Are Rolled Down", result.get(0).getSongTitle());
-    }
-
-    @Test
-    void testSearchSongByArtistNotFound() {
-        MusicStore musicStore = new MusicStore();
-        musicStore.configureMS();
-        
-        ArrayList<Song> result = musicStore.searchSongByArtist("Nonexistent Artist");
-
-        assertNotNull(result);
-        assertTrue(result.isEmpty());
-    }
-
-    @Test
-    void testSearchAlbumByTitleFound() {
-        MusicStore musicStore = new MusicStore();
-        musicStore.configureMS();
-        Album album = new Album("Mission Bell", "Amos Lee", "Singer/Songwriter", "2010");
-        
-        ArrayList<Album> result = musicStore.searchAlbumByTitle("Mission Bell");
-
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        assertEquals("Mission Bell", result.get(0).getTitle());
-    }
-
-    @Test
-    void testSearchAlbumByTitleNotFound() {
-        MusicStore musicStore = new MusicStore();
-        musicStore.configureMS();
-        
-        ArrayList<Album> result = musicStore.searchAlbumByTitle("Nonexistent Album");
-
-        assertNotNull(result);
-        assertTrue(result.isEmpty());
-    }
-
-    @Test
-    void testSearchAlbumByArtistFound() {
-        MusicStore musicStore = new MusicStore();
-        musicStore.configureMS();
-        Album album = new Album("Mission Bell", "Amos Lee", "Singer/Songwriter", "2010");
-        
-        ArrayList<Album> result = musicStore.searchAlbumByArtist("Amos Lee");
-
-        
-        assertNotNull(result);
-        assertEquals(1, result.size());
-        assertEquals("Amos Lee", result.get(0).getArtist());
-    }
-
-    @Test
-    void testSearchAlbumByArtistNotFound() {
-        MusicStore musicStore = new MusicStore();
-        musicStore.configureMS();
-        
-        ArrayList<Album> result = musicStore.searchAlbumByArtist("Nonexistent Artist");
-
-        assertNotNull(result);
-        assertTrue(result.isEmpty());
-    }
+	@Test
+	void testSearchAlbumByTitle() {
+		MusicStore ms = new MusicStore();
+		ms.configureMS("/Users/fatihbozdogan/Desktop/CS/CSC335/las/la2/src");
+		ArrayList<Album> albumsTest = ms.searchAlbumByTitle("19");
+		for (Album a : albumsTest) {
+			assertTrue(a.getTitle().equals("19"));
+		}
+	}
+	
+	@Test
+	void testSearchSongByTitle() {
+		MusicStore ms = new MusicStore();
+		ms.configureMS("/Users/fatihbozdogan/Desktop/CS/CSC335/las/la2/src");
+		ArrayList<Song> songsTest = ms.searchSongByTitle("Tired");
+		for (Song s : songsTest) {
+			assertTrue(s.getSongTitle().equals("Tired"));
+		}
+	}
+	
+	@Test
+	void testSearchSongByArtist() {
+		MusicStore ms = new MusicStore();
+		ms.configureMS("/Users/fatihbozdogan/Desktop/CS/CSC335/las/la2/src");
+		ArrayList<Song> songsTest = ms.searchSongByArtist("Adele");
+		assertEquals(songsTest.size(), 24);
+		for (Song s : songsTest) {
+			assertTrue(s.getArtistName().equals("Adele"));
+		}
+	}
+	
+	@Test
+	void songIsInMS() {
+		MusicStore mS = new MusicStore();
+		mS.configureMS("/Users/fatihbozdogan/Desktop/CS/CSC335/las/la2/src");
+		mS.songIsInMS("Lullaby", "OneRepublic", "Waking Up");
+	}
+	
+	@Test
+	void albumIsInMS() {
+		MusicStore mS = new MusicStore();
+		mS.configureMS("/Users/fatihbozdogan/Desktop/CS/CSC335/las/la2/src");
+		mS.albumIsInMS("19", "Adele");
+	}
+	
+	@Test
+	void findAlbum() {
+		MusicStore mS = new MusicStore();
+		mS.configureMS("/Users/fatihbozdogan/Desktop/CS/CSC335/las/la2/src");
+		mS.findAlbum("19", "Adele");
+		mS.findAlbum("my album", "Fatih");
+	}
+	
+	
+	
 }

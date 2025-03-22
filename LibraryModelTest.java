@@ -1,94 +1,94 @@
-import org.junit.jupiter.api.Test;
+package la2;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
 
 class LibraryModelTest {
 
-    @Test
-    void testSearchAlbumByTitleLib() {
-        LibraryModel libraryModel = new LibraryModel();
-        Album album = new Album("Mission Bell", "Amos Lee", "Singer/Songwriter", "2010");
-        libraryModel.addAlbum(album);
-        
-        ArrayList<Album> result = libraryModel.searchAlbumByTitleLib("Mission Bell");
-        assertEquals(1, result.size());
-        assertEquals("Mission Bell", result.get(0).getTitle());
-    }
+	@Test
+	void testAddSongAndAddAlbum() {
+		LibraryModel lM = new LibraryModel();
+		MusicStore mS = new MusicStore();
+		mS.configureMS("/Users/fatihbozdogan/Desktop/CS/CSC335/las/la2/src");
+		
+		lM.addSongAndAlbumHandler("Lullaby", "OneRepublic", "Waking Up", mS.findAlbum("Waking Up", "OneRepublic"));
+		
+		lM.songIsInLibrary("Lullaby", "OneRepublic", "Waking Up");
+		
+		lM.searchSongByTitle("Lullaby");
+		lM.searchSongByArtist("One Republic");
+		
+		lM.addAlbum(mS.findAlbum("Old Ideas", "Leonard Cohen"));
+		lM.addAlbumAndSongsHandler("Waking Up", "OneRepublic", mS.findAlbum("Waking Up", "OneRepublic"));
+		
+		lM.albumIsInLibrary("Old Ideas", "Leonard Cohen");
+		
+		lM.searchAlbumByTitle("Waking Up");
+		lM.searchAlbumByArtist("OneRepublic");
+		
+		assertTrue(lM.getSongsLib().size() == (mS.findAlbum("Old Ideas", "Leonard Cohen").getSongs().size() + 1));
+	}
+	
+	@Test
+	void testPlaylist() {
+		LibraryModel lM = new LibraryModel();
+		MusicStore mS = new MusicStore();
+		mS.configureMS("/Users/fatihbozdogan/Desktop/CS/CSC335/las/la2/src");
+		
+		lM.addSongAndAlbumHandler("Lullaby", "OneRepublic", "Waking Up", mS.findAlbum("Waking Up", "OneRepublic"));
+		
+		lM.playlistIsInLibrary("my_playlist");
+		lM.initializeAPlayList("my_playlist");
+		lM.playlistIsInLibrary("my_playlist");
+		
+				
+		lM.addToPlayList("Lullaby", "OneRepublic", "Waking Up", "my_playlist");
+		lM.songIsInPlaylist("Lullaby", "OneRepublic", "Waking Up", "my_playlist");
+		
+		lM.removeFromPlaylist("my_playlist", "Lullaby", "OneRepublic", "Waking Up");
+		ArrayList<Song> songsFromPlaylist = lM.getSongsFromPlaylist("my_playlist");
+		assertTrue(songsFromPlaylist.size() == 0);
+		
+		assertTrue(lM.playlistIsInLibrary("my_playlist"));
+		
+		lM.getPlaylists();
+	}
+	
+	@Test
+	void testGetters() {
+		LibraryModel lM = new LibraryModel();
+		MusicStore mS = new MusicStore();
+		mS.configureMS("/Users/fatihbozdogan/Desktop/CS/CSC335/las/la2/src");
+		
+		
+		lM.addSongAndAlbumHandler("Lullaby", "OneRepublic", "Waking Up", mS.findAlbum("Waking Up", "OneRepublic"));
+		lM.addSongAndAlbumHandler("Lullaby", "Leonard Cohen", "Old Ideas", mS.findAlbum("Old Ideas", "Leonard Cohen"));
+		
+		lM.getAlbumsLib();
+		lM.getArtistsLib();
+		
+		lM.rateTheSong("Lullaby", "OneRepublic", "Waking Up", 5);
+		
+		ArrayList<String> favArr = lM.getFavArr();
+		assertTrue(favArr.size() == 1);	
+		
+		lM.getSongsLib();
+	}
+	
+	@Test
+	void testAddSongEdgeCase() {
+		LibraryModel lM = new LibraryModel();
+		MusicStore mS = new MusicStore();
+		mS.configureMS("/Users/fatihbozdogan/Desktop/CS/CSC335/las/la2/src");
+		
+		lM.addSongAndAlbumHandler("Tired", "Adele", "19", mS.findAlbum("19", "Adele"));
+		lM.addSongAndAlbumHandler("Hometown Glory", "Adele", "19", mS.findAlbum("Hometown Glory", "Adele"));
 
-    @Test
-    void testSearchAlbumByArtist() {
-        LibraryModel libraryModel = new LibraryModel();
-        Album album = new Album("Mission Bell", "Amos Lee", "Singer/Songwriter", "2010");
-        libraryModel.addAlbum(album);
-        
-        ArrayList<Album> result = libraryModel.searchAlbumByArtist("Amos Lee");
-        assertEquals(1, result.size());
-        assertEquals("Mission Bell", result.get(0).getTitle());
-    }
 
-    @Test
-    void testSearchSongByArtistLib() {
-        LibraryModel libraryModel = new LibraryModel();
-        Song song1 = new Song("El Camino", "Amos Lee", "Mission Bell");
-        Song song2 = new Song("Windows Are Rolled Down", "Amos Lee", "Mission Bell");
-        libraryModel.addSong(song1);
-        libraryModel.addSong(song2);
-        
-        HashSet<Song> result = libraryModel.searchSongByArtistLib("Amos Lee");
-        assertTrue(result.contains(song1));
-        assertTrue(result.contains(song2));
-    }
+		
+	}
 
-    @Test
-    void testSearchSongByTitleLib() {
-        LibraryModel libraryModel = new LibraryModel();
-        Song song = new Song("El Camino", "Amos Lee", "Mission Bell");
-        libraryModel.addSong(song);
-        
-        HashSet<Song> result = libraryModel.searchSongByTitleLib("El Camino");
-        assertTrue(result.contains(song));
-    }
-
-    @Test
-    void testFindPlaylist() {
-        LibraryModel libraryModel = new LibraryModel();
-        libraryModel.initializeAPlayList("Mission Bell");
-        
-        PlayList foundPlaylist = libraryModel.findPlaylist("Mission Bell");
-        assertNotNull(foundPlaylist);
-        assertEquals("Mission Bell", foundPlaylist.getName());
-    }
-
-    @Test
-    void testRateTheSong() {
-        LibraryModel libraryModel = new LibraryModel();
-        Song song = new Song("El Camino", "Amos Lee", "Mission Bell");
-        libraryModel.addSong(song);
-        Rating rating = Rating.FIVE;
-        
-        libraryModel.rateTheSong("El Camino", "Amos Lee", "Mission Bell", rating);
-        assertEquals(rating, song.getSongRating());
-        assertTrue(song.getFavStatus());
-    }
- 
-    @Test
-    void testSearchPlaylistByNameLib() {
-        LibraryModel libraryModel = new LibraryModel();
-        libraryModel.initializeAPlayList("Mission Bell");
-        
-        PlayList foundPlaylist = libraryModel.findPlaylist("Mission Bell");
-        assertNotNull(foundPlaylist);
-    }
-
-    @Test
-    void testFindTheSongLM() {
-        LibraryModel libraryModel = new LibraryModel();
-        Song song = new Song("El Camino", "Amos Lee", "Mission Bell");
-        libraryModel.addSong(song);
-        
-        Song foundSong = libraryModel.findTheSongLM("El Camino", "Amos Lee", "Mission Bell");
-        assertEquals(song, foundSong);
-    }
 }
